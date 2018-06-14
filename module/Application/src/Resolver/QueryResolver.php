@@ -1,23 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tomasz
- * Date: 14.06.18
- * Time: 08:58
- */
-
 namespace Application\Resolver;
-
 
 use Application\Form\FindBooksForm;
 
+/**
+ * Class QueryResolver
+ *
+ * @package Application\Resolver
+ */
 class QueryResolver
 {
     public function __construct()
     {
     }
 
-    public function resolve(string $query)
+    /**
+     * Method returns book name, compare operator and an age from given query
+     *
+     * @param string $query
+     * @return array
+     */
+    public function resolve(string $query): array
     {
         preg_match(FindBooksForm::QUERY_PATTERN, $query, $matches);
 

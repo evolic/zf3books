@@ -8,7 +8,7 @@ use Application\Entity\Book;
 class BookRepository extends EntityRepository
 {
     /**
-     * Method used to obtain available users from the database
+     * Method used to obtain available books from the database
      *
      * @param array $criteria - additional criteria
      * @param int $hydrate - result hydration mode
@@ -38,6 +38,9 @@ class BookRepository extends EntityRepository
     }
 
     /**
+     * Method used to obtain books that has the same name as given one.
+     * Average age of male and female reviewers is also return.
+     *
      * @param string $bookName
      * @param string $compareOperator
      * @param int $age
@@ -77,6 +80,9 @@ GROUP BY b.id
     }
 
     /**
+     * Method used to obtain books that has fitting name to given one (fulltext search).
+     * Average age of male and female reviewers is also return.
+     *
      * @param string $bookName
      * @param string $compareOperator
      * @param int $age

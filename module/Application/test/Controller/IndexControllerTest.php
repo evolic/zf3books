@@ -57,7 +57,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertQuery('.container .row form#find-books input#query');
     }
 
-    public function testIndexActionViewModelWhenQueryIsSetWithInvalidText()
+    public function testIndexActionWhenQueryIsSetWithInvalidText()
     {
         $this->dispatch('/', 'POST', [
             'query' => 'ZieLoNa',
@@ -65,11 +65,31 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertQuery('.container .row form#find-books ul');
     }
 
-    public function testIndexActionViewModelWhenQueryIsSetWithValidText()
+    public function testIndexActionWhenQueryIsSetWithValidText()
     {
         $this->dispatch('/', 'POST', [
             'query' => 'ZieLoNa MiLa|age>30',
         ]);
+        $this->assertQuery('.container .row table');
         $this->assertNotQuery('.container .row form#find-books ul');
+
+        $this->assertXpathQueryCount('//table/tbody/tr ', 1);
+    }
+
+    public function testIndexActionWhenQueryIsSetWithUnExistingBook()
+    {
+        $this->dispatch('/', 'POST', [
+            'query' => 'Żółta|age>30',
+        ]);
+        $this->assertNotQuery('.container .row table');
+    }
+
+    public function testIndexActionWhenQueryIsSetWithPartOfTheNameOfExistingBook()
+    {
+        $this->dispatch('/', 'POST', [
+            'query' => 'ZieLoNa|age>30',
+        ]);
+        $this->assertQuery('.container .row table');
+        $this->assertXpathQueryCount('//table/tbody/tr ', 2);
     }
 }

@@ -1,11 +1,9 @@
 <?php
 namespace Application\Entity;
 
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Application\Doctrine\Repository\BookRepository;
 
 /**
  * A Unit entity class

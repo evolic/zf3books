@@ -15,7 +15,9 @@ class FindBooksForm extends Form
     const FIELD_SUBMIT  = 'submit';
     const QUERY_PATTERN = '/^([\\p{L} ]{2,})\|((age)(>|>=|<|<=)(\d+))$/u';
 
-
+    /**
+     * @var InputFilter
+     */
     private $inputFilter;
 
     public function __construct()
@@ -58,6 +60,8 @@ class FindBooksForm extends Form
             'name' => self::FIELD_QUERY,
             'required' => true,
             'filters' => [
+                // we cannot strip tags in this case, but we are sure that we are save with XSS
+                // we have regular expression describing out query here
 //                ['name' => StripTags::class],
                 ['name' => StringTrim::class],
             ],

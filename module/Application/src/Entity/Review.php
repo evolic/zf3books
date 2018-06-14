@@ -1,11 +1,7 @@
 <?php
 namespace Application\Entity;
 
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
-use Application\Doctrine\Repository\ReviewRepository;
 
 /**
  * A Unit entity class
@@ -50,5 +46,45 @@ class Review
 
     public function __construct()
     {
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge(): int
+    {
+        return $this->age;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSex(): string
+    {
+        return $this->sex;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBookId(): int
+    {
+        return $this->book_id;
+    }
+
+    /**
+     * @return Book
+     */
+    public function getBook(): Book
+    {
+        return $this->book;
     }
 }
