@@ -1,0 +1,76 @@
+<?php
+use Application\Form\FindBooksForm;
+?>
+<div class="jumbotron">
+    <h1>Welcome</h1>
+</div>
+
+<div class="row">
+    <?php
+//        $form->setAttribute('action', $this->url('application'));
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+    ?>
+    <p>
+        <?= $this->formRow($form->get(FindBooksForm::FIELD_QUERY)) ?>
+    </p>
+    <p>
+        <?= $this->formRow($form->get(FindBooksForm::FIELD_SUBMIT)) ?>
+    </p>
+    <?php
+        echo $this->form()->closeTag();
+    ?>
+</div>
+
+<div class="row">
+    <?php if ($books): ?>
+        <table style="width: 80%;">
+            <thead>
+                <th style="width: 10%;">ID</th>
+                <th style="width: 15%;">Name</th>
+                <th style="width: 15%;">Score</th>
+                <th style="width: 15%;">Date</th>
+                <th style="width: 15%;">Female average age</th>
+                <th style="width: 15%;">Male average age</th>
+                <th>Actions</th>
+            </thead>
+            <?php
+                $numberOfBooks = count($books);
+            ?>
+            <?php if ($numberOfBooks): ?>
+                <tbody>
+                    <?php
+                        /** @var array $book */
+                        foreach ($books as $book):
+                    ?>
+                        <tr>
+                            <td><?= $book['id']; ?></td>
+                            <td><?= $book['name']; ?></td>
+                            <td><?= sprintf('%.2f', $book['score']); ?></td>
+                            <td><?= $book['book_date']; ?></td>
+                            <td><?= is_null($book['females_avg_age']) ? 'null' : sprintf('%.2f', $book['females_avg_age']); ?></td>
+                            <td><?= is_null($book['males_avg_age']) ? 'null' : sprintf('%.2f', $book['males_avg_age']); ?></td>
+                            <td></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <?php if (1 == $numberOfBooks): ?>
+                            Found 1 book.
+                        <?php else: ?>
+                            Found <?= $numberOfBooks; ?> books.
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                </tfoot>
+            <?php endif; ?>
+        </table>
+    <?php elseif ([] === $books): ?>
+        <p>No book has been found.</p>
+    <?php else: ?>
+        <p id="errors">No valid query has been sent.</p>
+    <?php endif; ?>
+</div>

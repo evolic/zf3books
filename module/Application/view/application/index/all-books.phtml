@@ -1,0 +1,47 @@
+<div class="jumbotron">
+    <h1>Welcome</h1>
+</div>
+
+<div class="row">
+    <?php if ($books): ?>
+        <table style="width: 80%;">
+            <thead>
+                <th style="width: 10%;">ID</th>
+                <th style="width: 25%;">Name</th>
+                <th style="width: 15%;">Date</th>
+                <th>Actions</th>
+            </thead>
+            <?php
+                $numberOfBooks = count($books);
+            ?>
+            <?php if ($numberOfBooks): ?>
+                <tbody>
+                    <?php
+                        /** @var \Application\Entity\Book $book */
+                        foreach ($books as $book):
+                    ?>
+                        <tr>
+                            <td><?= $book->getId(); ?></td>
+                            <td><?= $book->getName(); ?></td>
+                            <td><?= $book->getDate()->format('Y-m-d'); ?></td>
+                            <td></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <?php if (1 == $numberOfBooks): ?>
+                            Found 1 book.
+                        <?php else: ?>
+                            Found <?= $numberOfBooks; ?> books.
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                </tfoot>
+            <?php endif; ?>
+        </table>
+    <?php else: ?>
+        <p>No book has been found.</p>
+    <?php endif; ?>
+</div>

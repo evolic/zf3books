@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         verbose="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="ZendSkeletonApplication Test Suite">
+            <directory suffix="Test.php">./module/Application/test</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <!-- add more directories -->
+            <directory suffix=".php">./module/</directory>
+            <exclude>
+                <!-- add more directories with relative or absolute path -->
+                <directory suffix=".php">./module/*/test/*</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html" target="build/coverage"
+             lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+        <log type="junit" target="build/logs/junit.xml"/>
+    </logging>
+
+    <php>
+        <ini name="date.timezone" value="UTC"/>
+
+        <!-- Integration Test Variables -->
+
+        <!--<var name="ZEND_DB_ADAPTER_DRIVER_SQLITE_MEMORY" value="true" />-->
+    </php>
+</phpunit>
