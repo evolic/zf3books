@@ -10,10 +10,6 @@ use Application\Form\FindBooksForm;
  */
 class QueryResolver
 {
-    public function __construct()
-    {
-    }
-
     /**
      * Method returns book name, compare operator and an age from given query
      *

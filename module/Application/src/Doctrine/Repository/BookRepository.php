@@ -8,13 +8,13 @@ use Application\Entity\Book;
 class BookRepository extends EntityRepository
 {
     /**
-     * Method used to obtain available books from the database
+     * Method used to obtain all available books from the database
      *
      * @param array $criteria - additional criteria
      * @param int $hydrate - result hydration mode
-     * @return mixed - available users
+     * @return array - available books
      */
-    public function getBooks($criteria, $hydrate = Query::HYDRATE_OBJECT)
+    public function getAllBooks($criteria, $hydrate = Query::HYDRATE_OBJECT)
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('b')

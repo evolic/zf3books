@@ -76,7 +76,7 @@ class IndexController extends AbstractActionController
     {
         $view    = new ViewModel();
         $form    = new FindBooksForm();
-        $books   = $this->bookService->getBooks();
+        $books   = $this->bookService->getAllBooks();
 
         $view->setVariable('form', $form);
         $view->setVariable('books', $books);

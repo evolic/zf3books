@@ -44,10 +44,6 @@ class Review
      */
     private $book;
 
-    public function __construct()
-    {
-    }
-
     /**
      * @return int
      */

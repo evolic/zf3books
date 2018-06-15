@@ -4,6 +4,7 @@ namespace Application\Doctrine\Service;
 use Application\Doctrine\Repository\BookRepository;
 use Application\Entity\Book;
 use Doctrine\ORM\EntityManager;
+use Doctrine\DBAL\DBALException;
 
 class BookService
 {
@@ -18,21 +19,13 @@ class BookService
     }
 
     /**
-     * Method used to obtain users' repository.
+     * Method returns all available books
      *
-     * @return BookRepository
-     */
-    private function getBookRepository()
-    {
-        return $this->entityManager->getRepository(Book::class);
-    }
-
-    /**
      * @return array
      */
-    public function getBooks()
+    public function getAllBooks()
     {
-        return $this->getBookRepository()->getBooks([]);
+        return $this->getBookRepository()->getAllBooks([]);
     }
 
     /**
@@ -55,7 +48,7 @@ class BookService
                 $compareOperator,
                 $age
             );
-        } catch (\Exception $e) {
+        } catch (DBALException $e) {
             return false;
         }
     }
@@ -80,8 +73,18 @@ class BookService
                 $compareOperator,
                 $age
             );
-        } catch (\Exception $e) {
+        } catch (DBALException $e) {
             return false;
         }
+    }
+
+    /**
+     * Method used to obtain users' repository.
+     *
+     * @return BookRepository
+     */
+    private function getBookRepository()
+    {
+        return $this->entityManager->getRepository(Book::class);
     }
 }

@@ -7,5 +7,4 @@ use Application\Entity\Review;
 
 class ReviewRepository extends EntityRepository
 {
-
 }
