@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * A Unit entity class
  *
- * @ORM\Entity(repositoryClass="Application\Doctrine\Repository\ReviewRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="reviews")
  */
 class Review
