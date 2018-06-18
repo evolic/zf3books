@@ -5,17 +5,24 @@ use Application\Doctrine\Repository\BookRepository;
 use Application\Entity\Book;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DBALException;
+use Zend\Log\Logger;
 
 class BookService
 {
     /**
-     * @var EntityManager
+     * @var BookRepository
      */
-    private $entityManager;
+    private $bookRepository;
 
-    public function __construct(EntityManager $entityManager)
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    public function __construct(BookRepository $bookRepository, Logger $logger)
     {
-        $this->entityManager = $entityManager;
+        $this->bookRepository = $bookRepository;
+        $this->logger = $logger;
     }
 
     /**
@@ -25,7 +32,7 @@ class BookService
      */
     public function getAllBooks()
     {
-        return $this->getBookRepository()->getAllBooks([]);
+        return $this->bookRepository->getAllBooks([]);
     }
 
     /**
@@ -34,22 +41,24 @@ class BookService
      * @param  string  $bookName
      * @param  string  $compareOperator
      * @param  int     $age
-     * @return array|bool
+     * @return array
      */
     public function getBooksByNameWithStats(
         string $bookName,
         string $compareOperator,
         int $age
-    )
+    ): array
     {
         try {
-            return $this->getBookRepository()->getBooksByNameWithStats(
+            return $this->bookRepository->getBooksByNameWithStats(
                 $bookName,
                 $compareOperator,
                 $age
             );
         } catch (DBALException $e) {
-            return false;
+            $this->logger->err($e->getMessage());
+
+            return [];
         }
     }
 
@@ -59,32 +68,24 @@ class BookService
      * @param  string  $bookName
      * @param  string  $compareOperator
      * @param  int     $age
-     * @return array|bool
+     * @return array
      */
     public function getBooksWithFulltextAndStats(
         string $bookName,
         string $compareOperator,
         int $age
-    )
+    ): array
     {
         try {
-            return $this->getBookRepository()->getBooksWithFulltextAndStats(
+            return $this->bookRepository->getBooksWithFulltextAndStats(
                 $bookName,
                 $compareOperator,
                 $age
             );
         } catch (DBALException $e) {
-            return false;
-        }
-    }
+            $this->logger->err($e->getMessage());
 
-    /**
-     * Method used to obtain users' repository.
-     *
-     * @return BookRepository
-     */
-    private function getBookRepository()
-    {
-        return $this->entityManager->getRepository(Book::class);
+            return [];
+        }
     }
 }

@@ -48,7 +48,12 @@ class FindBooksForm extends Form
         ]);
     }
 
-    public function getInputFilter()
+    /**
+     * Returns InputFilter
+     *
+     * @return InputFilter
+     */
+    public function getInputFilter(): InputFilter
     {
         if ($this->inputFilter) {
             return $this->inputFilter;

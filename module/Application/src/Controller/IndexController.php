@@ -32,10 +32,10 @@ class IndexController extends AbstractActionController
         $request = $this->getRequest();
         $view    = new ViewModel();
         $form    = new FindBooksForm();
-        $books   = false;
+        $isQueryValid   = false;
 
         $view->setVariable('form', $form);
-        $view->setVariable('books', $books);
+        $view->setVariable('isQueryValid', $isQueryValid);
 
         if (! $request->isPost()) {
             return $view;
@@ -46,6 +46,9 @@ class IndexController extends AbstractActionController
         if (! $form->isValid()) {
             return $view;
         }
+
+        $isQueryValid   = true;
+        $view->setVariable('isQueryValid', $isQueryValid);
 
         $values     = $form->getData();
         $query      = $values[FindBooksForm::FIELD_QUERY];
@@ -59,7 +62,7 @@ class IndexController extends AbstractActionController
             $age
         );
 
-        if (is_array($books) && empty($books)) {
+        if (empty($books)) {
             $books = $this->bookService->getBooksWithFulltextAndStats(
                 $bookName,
                 $compareOperator,

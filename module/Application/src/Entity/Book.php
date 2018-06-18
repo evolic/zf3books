@@ -69,7 +69,12 @@ class Book
         return $this->book_date;
     }
 
-    public function getReviews()
+    /**
+     * Return book reviews
+     *
+     * @return ArrayCollection
+     */
+    public function getReviews(): ArrayCollection
     {
         return $this->reviews;
     }

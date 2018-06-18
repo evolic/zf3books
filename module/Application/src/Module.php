@@ -8,6 +8,10 @@
 namespace Application;
 
 use Application\Doctrine\Service\BookService;
+use Application\Entity\Book;
+use Doctrine\ORM\EntityManager;
+use Zend\Log\Logger;
+use Zend\Log\Writer as LogWriter;
 
 class Module
 {
@@ -22,10 +26,24 @@ class Module
     {
         return [
             'factories' => [
-                BookService::class => function ($sm) {
-                    $entityManager = $sm->get('Doctrine\ORM\EntityManager');
+                'Zend\Log' => function ($sm) {
+                    $log = new Logger();
 
-                    $service = new BookService($entityManager);
+                    $streamWriter = new LogWriter\Stream('./data/logs/application.log');
+                    $log->addWriter($streamWriter);
+
+//                    $chromePhpWriter = new LogWriter\ChromePhp();
+//                    $log->addWriter($chromePhpWriter);
+
+                    return $log;
+                },
+                BookService::class => function ($sm) {
+                    /** @var EntityManager $entityManager */
+                    $entityManager  = $sm->get(EntityManager::class);
+                    $bookRepository = $entityManager->getRepository(Book::class);
+                    $logger  = $sm->get('Zend\Log');
+
+                    $service = new BookService($bookRepository, $logger);
 
                     return $service;
                 },

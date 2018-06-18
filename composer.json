@@ -18,7 +18,8 @@
         "zendframework/zend-mvc-i18n": "^1.0",
         "zfcampus/zf-development-mode": "^3.0",
         "doctrine/doctrine-orm-module" : "^2.1",
-        "doctrine/doctrine-module" : "^2.1"
+        "doctrine/doctrine-module" : "^2.1",
+        "zendframework/zend-log": "^2.10"
     },
     "require-dev": {
         "zendframework/zend-test": "^3.0.1",

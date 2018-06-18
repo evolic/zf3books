@@ -24,7 +24,9 @@ use Application\Form\FindBooksForm;
 </div>
 
 <div class="row">
-    <?php if ($books): ?>
+    <?php if (! $isQueryValid): ?>
+        <p id="errors">No valid query has been sent.</p>
+    <?php elseif ($books): ?>
         <table style="width: 80%;">
             <thead>
                 <th style="width: 10%;">ID</th>
@@ -68,9 +70,7 @@ use Application\Form\FindBooksForm;
                 </tfoot>
             <?php endif; ?>
         </table>
-    <?php elseif ([] === $books): ?>
-        <p>No book has been found.</p>
     <?php else: ?>
-        <p id="errors">No valid query has been sent.</p>
+        <p>No book has been found.</p>
     <?php endif; ?>
 </div>
